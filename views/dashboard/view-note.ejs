@@ -1,0 +1,65 @@
+<div class="container-fluid container-fluid-custom pb-5 mb-5">
+
+  <div class="row mb-4">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active"><%= note.title %></li>
+        </ol>
+      </nav>
+      <div class="col d-flex justify-content-between align-items-center">
+        <h1 class="h3">View Note</h1>
+        <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" id="deleteButton" data-bs-target="#deleteModal">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <form action="/dashboard/item/<%= noteID %>?_method=PUT" method="POST" class="position-relative">
+    <div class="form-group mb-4 position-absolute" style="left:1px; top:1px; right: 1px;">
+      <input type="text" class="form-control fw-bold border-0 fs-4" id="title" name="title" value="<%= note.title %>" placeholder="Title">
+    </div>
+
+    <div class="form-group mb-4">
+      <textarea class="form-control pt-5 fs-4" id="body" name="body" placeholder="Take a note..." rows="12"><%= note.body %></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-lg">Update</button>
+    </div>
+
+  </form>
+
+</div>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">You are about to delete a note</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          This will delete your note <b class="fw-bold"><%= note.title %></b><br/>
+          Are you sure?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  
+        <form action="/dashboard/item-delete/<%= noteID %>?_method=DELETE" method="POST" class="position-relative">
+          <button type="submit" class="btn btn-primary">Delete Note</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
