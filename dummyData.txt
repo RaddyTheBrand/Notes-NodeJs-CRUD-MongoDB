@@ -1,9 +1,11 @@
 
-******** Notes
-- Change the user to YOUR user ID
+******** Option 1
+- Change the 'user' to YOUR user ID
 - Add the following code in dashboardController -> exports.dashboard
 - Go in your browser and refresh the dashboard page.
-- Enjoy
+
+******** Option 2
+- Insert the data below manually into MongoDB. This might be the smartest option.
 
   try {
     await Note.insertMany([
