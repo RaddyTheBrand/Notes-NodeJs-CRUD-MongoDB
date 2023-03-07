@@ -7,6 +7,9 @@
 ## Create .env file
 Create a .env file to store your credentials. Example below:
 
+## Udates
+[x] Fixed Mongoose Notes Query Issue 7.0.0
+
 ```
 MONGODB_URI = mongodb+srv://<username>:<password>@mongodburlhere
 GOOGLE_CLIENT_ID= YOUR_GOOGLE_ID_HERE
