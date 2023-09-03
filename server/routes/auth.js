@@ -74,7 +74,7 @@ passport.serializeUser(function (user, done) {
 });
 
 // Retrieve user data from session.
-// Old
+// Original Code
 // passport.deserializeUser(function (id, done) {
 //   User.findById(id, function (err, user) {
 //     done(err, user);
