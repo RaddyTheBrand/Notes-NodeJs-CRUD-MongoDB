@@ -3,23 +3,22 @@ require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require("method-override");
-const connectDB = require('./server/config/db');
+const connectDB = require('./config/database');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = 3000 || process.env.PORT;
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'pizza cat',
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI
   }),
-  //cookie: { maxAge: new Date ( Date.now() + (3600000) ) } 
-  // Date.now() - 30 * 24 * 60 * 60 * 1000
+  
 }));
 
 app.use(passport.initialize());
@@ -42,9 +41,9 @@ app.set('view engine', 'ejs');
 
 
 // Routes
-app.use('/', require('./server/routes/auth'));
-app.use('/', require('./server/routes/index'));
-app.use('/', require('./server/routes/dashboard'));
+app.use('/', require('./routes/auth'));
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/dashboard'));
 
 // Handle 404
 app.get('*', function(req, res) {

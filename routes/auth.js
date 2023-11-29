@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require("../models/User");
+const User = require("../modles/User");
 
 passport.use(
   new GoogleStrategy(
@@ -73,15 +73,8 @@ passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-// Retrieve user data from session.
-// Original Code
-// passport.deserializeUser(function (id, done) {
-//   User.findById(id, function (err, user) {
-//     done(err, user);
-//   });
-// });
+// Retrieve user data from session
 
-// New
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
