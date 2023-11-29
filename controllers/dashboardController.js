@@ -1,4 +1,4 @@
-const Note = require("../models/Notes");
+const Note = require("../modles/Notes");
 const mongoose = require("mongoose");
 
 /**
@@ -16,7 +16,6 @@ exports.dashboard = async (req, res) => {
   };
 
   try {
-    // Mongoose "^7.0.0 Update
     const notes = await Note.aggregate([
       { $sort: { updatedAt: -1 } },
       { $match: { user: mongoose.Types.ObjectId(req.user.id) } },
@@ -41,50 +40,20 @@ exports.dashboard = async (req, res) => {
       current: page,
       pages: Math.ceil(count / perPage)
     });
- 
-    // Original Code
-    // Note.aggregate([
-    //   { $sort: { updatedAt: -1 } },
-    //   { $match: { user: mongoose.Types.ObjectId(req.user.id) } },
-    //   {
-    //     $project: {
-    //       title: { $substr: ["$title", 0, 30] },
-    //       body: { $substr: ["$body", 0, 100] },
-    //     },
-    //   },
-    // ])
-    //   .skip(perPage * page - perPage)
-    //   .limit(perPage)
-    //   .exec(function (err, notes) {
-    //     Note.count().exec(function (err, count) {
-    //       if (err) return next(err);
-    //       res.render("dashboard/index", {
-    //         userName: req.user.firstName,
-    //         locals,
-    //         notes,
-    //         layout: "../views/layouts/dashboard",
-    //         current: page,
-    //         pages: Math.ceil(count / perPage),
-    //       });
-    //     });
-    //   });
 
   } catch (error) {
     console.log(error);
   }
 };
 
-/**
- * GET /
- * View Specific Note
- */
+/** GET /View Specific Note*/
 exports.dashboardViewNote = async (req, res) => {
   const note = await Note.findById({ _id: req.params.id })
     .where({ user: req.user.id })
     .lean();
 
   if (note) {
-    res.render("dashboard/view-note", {
+    res.render("dashboard/show", {
       noteID: req.params.id,
       note,
       layout: "../views/layouts/dashboard",
@@ -128,7 +97,7 @@ exports.dashboardDeleteNote = async (req, res) => {
  * Add Notes
  */
 exports.dashboardAddNote = async (req, res) => {
-  res.render("dashboard/add", {
+  res.render("dashboard/new", {
     layout: "../views/layouts/dashboard",
   });
 };
